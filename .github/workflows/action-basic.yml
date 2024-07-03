@@ -4,8 +4,9 @@ jobs:
   build:
   runs-on: ubuntu-latest
   steps:
-  - name: Checkout 
-  uses: actions/checkout@v2- name: Build project
+    - name: Checkout 
+  uses: actions/checkout@v2
+    - name: Build project
   run: |
     echo "Build Project"- name: Run tests
   run: |
