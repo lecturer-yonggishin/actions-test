@@ -37,7 +37,7 @@ jobs:
         path: ./src/main/resources/application.properties
         
     - name: Build with Maven
-      run: ./maven clean build
+      run: mvn --batch-mode --update-snapshots verify
       
     - name: Make Directory
       run: mkdir -p deploy
