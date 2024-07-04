@@ -75,6 +75,6 @@ jobs:
           scp -i ~/private-key.pem -r ./* ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}
       - name: Execute remote commands
         run: |
-          ssh ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} "sudo nohup java -jar /home/${{ secrets.REMOTE_USER }}/app.jar &"
+          ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "sudo nohup java -jar /home/${{ secrets.REMOTE_USER }}/app.jar &"
 
 
