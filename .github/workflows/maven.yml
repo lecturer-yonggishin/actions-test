@@ -41,9 +41,16 @@ jobs:
       
     - name: Make Directory
       run: mkdir -p deploy
-
+    
     - name: Copy Jar
       run: cp ./target/*.jar ./deploy/app.jar
+      
+    - uses: actions/upload-artifact@v2
+      with:
+        name: app
+        path: ./deploy/app.jar
+   
+     
 
   deploy:
     needs: build
