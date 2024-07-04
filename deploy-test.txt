@@ -1,1 +1,1 @@
-deploy-test:v1
+deploy-test:v2
