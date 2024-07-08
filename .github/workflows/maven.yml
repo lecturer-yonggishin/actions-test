@@ -45,10 +45,18 @@ jobs:
     - name: Copy Jar
       run: cp ./target/*.jar ./deploy/app.jar
       
+    - uses: actions/upload-artifact@v2
+      with:
+        name: app
+        path: ./deploy/app.jar
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: app
       - name: Create SSH_PRIVATE_KEY
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/private-key.pem
@@ -64,10 +72,6 @@ jobs:
           scp -i ~/private-key.pem -r ./* ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}
       - name: Execute remote commands
         run: |
-          pid=$(ps aux | grep "${{env.FILE_NAME}}" | grep -v grep | awk '{print $2}')
-          echo "pid : $pid"
-          echo "jar : ${{env.FILE_PATH}}${{env.FILE_NAME}}"
-          if [ -n "$pid" ]; then
-            kill -9 $pid  
-          fi
-          nohup java -jar ${{env.FILE_PATH}}${{env.FILE_NAME}} 2>&1 &
+          ssh -i ~/private-key.pem ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "sudo nohup java -jar /home/${{ secrets.REMOTE_USER }}/app.jar 2>&1 &"
+
+
