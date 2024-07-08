@@ -49,9 +49,6 @@ jobs:
       with:
         name: app
         path: ./deploy/app.jar
-   
-     
-
   deploy:
     needs: build
     runs-on: ubuntu-latest
@@ -75,6 +72,6 @@ jobs:
           scp -i ~/private-key.pem -r ./* ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}
       - name: Execute remote commands
         run: |
-          ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "sudo nohup java -jar /home/${{ secrets.REMOTE_USER }}/app.jar &"
+          ssh -i ~/private-key.pem ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "sudo nohup java -jar /home/${{ secrets.REMOTE_USER }}/app.jar &"
 
 
