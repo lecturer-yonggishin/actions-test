@@ -63,9 +63,6 @@ jobs:
         - name: Add Host
           run: |
             ssh-keyscan ${{ secrets.REMOTE_HOST }} >> ~/.ssh/known_hosts
-        - name: SCP transfer
-          run: |
-            scp -i ~/private-key.pem app.jar ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:/home/${{ secrets.REMOTE_USER }}
         - name: Execute remote commands
           run: |
             ssh -i ~/private-key.pem ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "docker stop $(docker ps -a -q)"
