@@ -13,7 +13,7 @@ public class WebConfig implements WebMvcConfigurer{
 	      .addMapping("/**")
 	      .allowedOrigins("http://127.0.0.1:80")
 	      .allowedHeaders("*") 
-	      .allowedMethods("GET", "POST", "PUT", "DELETE") 
+	      .allowedMethods("*") 
 	      .allowCredentials(true); 
 	  } 
 }
