@@ -52,7 +52,7 @@ jobs:
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USERNAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port: ${{ secrets.SSH_REMOTE_PORT }}
+        port: 22
         script: |
           docker stop $(docker ps -a -q) 
           docker rm $(docker ps -a -q) 
